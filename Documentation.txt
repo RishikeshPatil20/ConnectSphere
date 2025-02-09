@@ -1,0 +1,138 @@
+# Social Media Project Documentation
+
+## Overview
+The Social Media project is a robust Node.js application built with Express.js, MongoDB, and Mongoose. It offers users a secure and interactive platform to create posts, like and comment on content, and manage their accounts. 
+Designed with modular architecture, the project incorporates JWT authentication and role-based access control to ensure security and scalability.
+
+---
+
+## Key Features
+- User Authentication: Includes functionalities such as login, registration, password reset, and multi-session logout.
+- Post Management: Create, read, update, and delete posts with optional image uploads.
+- Comments and Replies: Users can add, update, delete comments, and reply to comments.
+- Likes: Like toggling for posts and comments.
+- Friend Requests: Send and manage friend requests.
+- OTP-based Password Reset: Secure OTP functionality for password recovery.
+
+---
+
+## File Structure
+```plaintext
+/social-media
+|-- src
+|   |-- config
+|   |   |-- mongoose.js
+|   |-- middleware
+|   |   |-- jwtTokenAuthorization.js
+|   |   |-- uploadFile.js
+|   |-- resources
+|   |   |-- user
+|   |   |   |-- user.controller.js
+|   |   |   |-- user.repository.js
+|   |   |   |-- user.router.js
+|   |   |-- posts
+|   |   |   |-- posts.controller.js
+|   |   |   |-- posts.repository.js
+|   |   |   |-- posts.router.js
+|   |   |-- comments
+|   |   |   |-- comments.controller.js
+|   |   |   |-- comments.repository.js
+|   |   |   |-- comments.router.js
+|   |   |-- likes
+|   |   |   |-- likes.controller.js
+|   |   |   |-- likes.repository.js
+|   |   |   |-- likes.router.js
+|   |   |-- otp-authentication
+|   |   |   |-- otp-authentication.controller.js
+|   |   |   |-- otp-authentication.repository.js
+|   |   |   |-- otp-authentication.router.js
+|-- index.js
+|-- utils.js
+```
+
+---
+
+## Detailed Routes
+### User Routes (`/api/user`)
+- POST `/registerUser`: Register a new user.
+- POST `/login`: Log in with email and password.
+- POST `/logoutAll`: Log out from all sessions (requires JWT authentication).
+- GET `/view/:userId`: View user details (requires JWT authentication).
+- POST `/sendFriendRequest`: Send a friend request (requires JWT authentication).
+- POST `/respondToFriendRequest/:userId`: Respond to a friend request (requires JWT authentication).
+- POST `/reset-password`: Reset user password.
+- DELETE `/:id`: Delete a user by ID (requires JWT authentication).
+
+### Post Routes (`/api/posts`)
+- GET `/all`: Retrieve all posts (requires JWT authentication).
+- GET `/`: Retrieve a specific post by ID (requires JWT authentication).
+- POST `/create-post`: Create a new post with optional image upload (requires JWT authentication).
+- PUT `/update-post`: Update an existing post (requires JWT authentication).
+- DELETE `/delete-post`: Delete a post (requires JWT authentication).
+
+### Comment Routes (`/api/comments`)
+- GET `/:postId`: Retrieve all comments for a specific post (requires JWT authentication).
+- POST `/create-comment`: Add a new comment to a post (requires JWT authentication).
+- PUT `/update-comment/:commentId`: Update a comment (requires JWT authentication).
+- DELETE `/delete-comment/:commentId`: Delete a comment (requires JWT authentication).
+- POST `/:commentId/reply`: Add a reply to a comment (requires JWT authentication).
+- POST `/:commentId/like`: Like a comment (requires JWT authentication).
+
+### Like Routes (`/api/likes`)
+- GET `/`: Retrieve all likes for a post (requires JWT authentication).
+- GET `/toggle`: Toggle the like status of a post (requires JWT authentication).
+
+### OTP Authentication Routes (`/api/otp`)
+- POST `/request`: Request an OTP for password reset.
+
+---
+
+## Middleware
+1. jwtTokenAuthorization.js: Validates JWT tokens to secure routes and ensure proper authorization.
+2. uploadFile.js: Handles file uploads using the `multer` library.
+
+---
+
+## Database Configuration
+- MongoDB is used for data storage.
+- Mongoose is employed for schema validation and object modeling.
+- Database connection is managed in `src/config/mongoose.js`.
+
+---
+
+## Installation
+1. Clone the repository.
+2. Install dependencies:
+   ```bash
+   npm install
+   ```
+3. Create a `.env` file with the following variables:
+   ```env
+   PORT=8000
+   MONGODB_URI=<your_mongo_connection_string>
+   JWT_SECRET=<your_jwt_secret>
+   ```
+4. Start the server:
+   ```bash
+   npm start
+   ```
+
+---
+
+## Dependencies
+### Installed Libraries
+- bcrypt        : Hashes passwords for secure storage.
+- body-parser   : Parses incoming request bodies in middleware.
+- dotenv        : Loads environment variables from a `.env` file.
+- express       : Framework for building RESTful APIs.
+- jsonwebtoken  : Creates and verifies JWT tokens for authentication.
+- mongodb       : MongoDB driver to interact with the database.
+- mongoose      : ODM library for MongoDB, enabling schema definition and data validation.
+- multer        : Middleware for handling file uploads (e.g., images for posts).
+- nodemailer    : Sends emails for password reset and notifications.
+- nodemon       : Development tool to automatically restart the server on file changes.
+- otp-generator : Generates OTP codes for secure password resets.
+- twilio        : Sends SMS notifications, such as OTPs, to users.
+- validator     : Provides functions to validate and sanitize input strings.
+
+---

@@ -1,0 +1,25 @@
+Mongoose Schema Notes
+
+Properties:
+
+title: Required string, trimmed.
+content: Required string.
+userId: Required ObjectId referencing "User" collection.
+imageUrl: Optional string (defaults to "").
+comments: Array of ObjectIds referencing "Comment" collection.
+createdAt: Date, automatically set on creation.
+updatedAt: Date, automatically set on update.
+Schema Options:
+
+timestamps: Enables automatic management of createdAt and updatedAt.
+Field Attributes:
+
+type: Defines the data type of the field (e.g., String, Number, ObjectId, Date, Array).
+required: Ensures the field must have a value.
+trim: Removes leading/trailing whitespace from string values.
+ref: Specifies the referenced collection for ObjectIds.
+default: Sets a default value for the field.
+
+
+//
+TWILIO_SID should start with captial -AC
