@@ -1,18 +1,6 @@
 import { Otp } from "./otp-authentication.schema.js";
 
-// export const saveOtp = async ({ email, otp }) => {
-//   const otpEntry = new Otp({ email, otp });
-//   await otpEntry.save();
-// };
-// export const findOtpByEmailOrPhone = async (identifier) => {
-//   // Replace with actual DB logic
-//   return Otp.findOne({ identifier });
-// };
 
-// export const deleteOtp = async (identifier) => {
-//   // Replace with actual DB logic
-//   await Otp.deleteOne({ identifier });
-// };
 // Save OTP to the database
 export const saveOtp = async ({ email, otp, expiresAt }) => {
   try {
